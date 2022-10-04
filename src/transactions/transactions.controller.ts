@@ -7,13 +7,13 @@ import {
     Post,
     Put,
 } from '@nestjs/common';
-import { CreateProductDto } from './dto/create-product.dto';
-import { UpdateProductDto } from './dto/update-product.dto';
-import { ProductsService } from './products.service';
+import { CreateTransactionDto } from './dto/create-transaction.dto';
+import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import { TransactionsService } from './transactions.service';
 
-@Controller('api/product')
-export class ProductsController {
-    constructor(private readonly service: ProductsService) {}
+@Controller('api/transaction')
+export class TransactionsController {
+    constructor(private readonly service: TransactionsService) {}
 
   @Get()
   async index() {
@@ -34,8 +34,8 @@ export class ProductsController {
   }
 
   @Post()
-  async create(@Body() createProductDto: CreateProductDto) {
-    var data = await this.service.create(createProductDto);
+  async create(@Body() createTransactionDto: CreateTransactionDto) {
+    var data = await this.service.create(createTransactionDto);
     return {
         statusCode: 200,
         data: data
@@ -43,8 +43,8 @@ export class ProductsController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-    var data = await this.service.update(id, updateProductDto)
+  async update(@Param('id') id: string, @Body() updateTransactionDto: UpdateTransactionDto) {
+    var data = await this.service.update(id, updateTransactionDto)
     return {
         statusCode: 201,
         data: data
