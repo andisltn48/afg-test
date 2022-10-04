@@ -1,23 +1,37 @@
 version: '3.8'
 
 services:
-    dev:
-        container_name: nestjs_api
-        image: nestjs-api:1.0.0
-        build:
-            context: .
-            target: development
-            dockerfile: ./Dockerfile
-        command: npm run start:debug
+    products:
+        build: ./products
+        hostname: products
+        networks:
+            - backend
+        links:
+            - db
         ports:
             - 3000:3000
-            - 9229:9229
+    transactions:
+        build: ./transactions
+        hostname: transactions
         networks:
-            - nestjs-network
+            - backend
+        links:
+            - db
+        ports:
+            - 3001:9229
+    db:
+        image: 'mongo:latest'
+        restart: always
+        hostname: db
+        environment:
+            MONGO_INITDB_DATABASE: testafg
         volumes:
-            - .:/usr/src/app
-            - /usr/src/app/node_modules
-        restart: unless-stopped
+            - "./db/init/:/docker-entrypoint-initdb.d/"
+        networks:
+            - backend
+        ports:
+            - 27017:27017
 
 networks:
-    nestjs-network:
+    backend:
+        driver: bridge

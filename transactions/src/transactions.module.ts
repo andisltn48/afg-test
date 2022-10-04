@@ -8,6 +8,7 @@ import { Transaction,TransactionSchema  } from './schemas/transaction.schema';
   providers: [TransactionsService],
   controllers: [TransactionsController],
   imports: [
+    MongooseModule.forRoot('mongodb://localhost:27017/testafg'),
     MongooseModule.forFeature([{
       name : Transaction.name,
       schema : TransactionSchema
