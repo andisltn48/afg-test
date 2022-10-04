@@ -9,7 +9,7 @@ import { ProductListGateway } from './product-list.gateway';
   providers: [ProductsService, ProductListGateway],
   controllers: [ProductsController],
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/testafg'),
+    MongooseModule.forRoot('mongodb://mongodb:27017/testafg'),
     MongooseModule.forFeature([{
       name : Product.name,
       schema : ProductSchema

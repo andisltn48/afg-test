@@ -3,34 +3,34 @@ version: '3.8'
 services:
     products:
         build: ./products
+        restart: always
         hostname: products
         networks:
             - backend
-        links:
+        depends_on:
             - db
         ports:
             - 3000:3000
     transactions:
         build: ./transactions
+        restart: always
         hostname: transactions
         networks:
             - backend
-        links:
+        depends_on:
             - db
         ports:
             - 3001:9229
     db:
-        image: 'mongo:latest'
-        restart: always
-        hostname: db
-        environment:
-            MONGO_INITDB_DATABASE: testafg
+        image : mongo:latest
+        container_name: mongodb
         volumes:
-            - "./db/init/:/docker-entrypoint-initdb.d/"
-        networks:
-            - backend
+            - ./database:/data/db
         ports:
             - 27017:27017
+        networks:
+            - backend
+        restart: always
 
 networks:
     backend:
