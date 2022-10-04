@@ -3,7 +3,6 @@ version: '3.8'
 services:
     products:
         build: ./products
-        restart: always
         hostname: products
         networks:
             - backend
@@ -13,14 +12,13 @@ services:
             - 3000:3000
     transactions:
         build: ./transactions
-        restart: always
         hostname: transactions
         networks:
             - backend
         depends_on:
             - db
         ports:
-            - 3001:9229
+            - 5000:5000
     db:
         image : mongo:latest
         container_name: mongodb
