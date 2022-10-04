@@ -19,7 +19,7 @@ TransactionsModule = __decorate([
         providers: [transactions_service_1.TransactionsService],
         controllers: [transactions_controller_1.TransactionsController],
         imports: [
-            mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017/testafg'),
+            mongoose_1.MongooseModule.forRoot('mongodb://mongodb:27017/testafg'),
             mongoose_1.MongooseModule.forFeature([{
                     name: transaction_schema_1.Transaction.name,
                     schema: transaction_schema_1.TransactionSchema
