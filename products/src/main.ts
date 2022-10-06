@@ -8,6 +8,6 @@ async function bootstrap() {
       methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
       credentials: true,
   })
-  await http.listen(3000);
+  await http.listen(8000);
 }
 bootstrap();

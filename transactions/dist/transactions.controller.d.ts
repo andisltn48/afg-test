@@ -4,9 +4,11 @@ import { TransactionsService } from './transactions.service';
 export declare class TransactionsController {
     private readonly service;
     constructor(service: TransactionsService);
+    private socket;
+    private product;
     index(): Promise<{
         statusCode: number;
-        data: import("./schemas/transaction.schema").Transaction[];
+        data: any[];
     }>;
     find(id: string): Promise<{
         statusCode: number;

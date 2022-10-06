@@ -4,12 +4,13 @@ import { ProductsController } from './products.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Product,ProductSchema  } from './schemas/product.schema';
 import { ProductListGateway } from './product-list.gateway';
+import { ProductDetailGateway } from './product-detail.gateway';
 
 @Module({
-  providers: [ProductsService, ProductListGateway],
+  providers: [ProductsService, ProductListGateway, ProductDetailGateway],
   controllers: [ProductsController],
   imports: [
-    MongooseModule.forRoot('mongodb://mongodb:27017/testafg'),
+    MongooseModule.forRoot('mongodb://localhost:27017/testafg'),
     MongooseModule.forFeature([{
       name : Product.name,
       schema : ProductSchema

@@ -17,15 +17,33 @@ const common_1 = require("@nestjs/common");
 const create_transaction_dto_1 = require("./dto/create-transaction.dto");
 const update_transaction_dto_1 = require("./dto/update-transaction.dto");
 const transactions_service_1 = require("./transactions.service");
+const socket_io_client_1 = require("socket.io-client");
 let TransactionsController = class TransactionsController {
     constructor(service) {
         this.service = service;
+        this.product = {};
     }
     async index() {
+        this.socket = (0, socket_io_client_1.io)("http://127.0.0.1:8000");
         var data = await this.service.findAll();
+        var response = [];
+        data.forEach(value => {
+            var withProduct = {};
+            withProduct.qty = value.qty;
+            withProduct.total_price = value.total_price;
+            withProduct.payment_method = value.payment_method;
+            withProduct.createdAt = value.createdAt;
+            withProduct.deletedAt = value.deletedAt;
+            this.socket.emit('product_detail', { productId: value.product_id });
+            this.socket.on('product_detail', ({ res }) => {
+                this.product = res;
+            });
+            withProduct.product = this.product;
+            response.push(withProduct);
+        });
         return {
             statusCode: 200,
-            data: data
+            data: response
         };
     }
     async find(id) {

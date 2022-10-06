@@ -27,6 +27,7 @@
     "@nestjs/platform-express": "^8.4.7",
     "@nestjs/platform-socket.io": "^9.1.2",
     "@nestjs/websockets": "^9.1.2",
+    "@types/socket.io-client": "^3.0.0",
     "express": "^4.18.1",
     "mongoose": "^6.6.3",
     "reflect-metadata": "^0.1.13",
