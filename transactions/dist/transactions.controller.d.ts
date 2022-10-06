@@ -12,7 +12,7 @@ export declare class TransactionsController {
     }>;
     find(id: string): Promise<{
         statusCode: number;
-        data: import("./schemas/transaction.schema").Transaction;
+        data: any;
     }>;
     create(createTransactionDto: CreateTransactionDto): Promise<{
         statusCode: number;

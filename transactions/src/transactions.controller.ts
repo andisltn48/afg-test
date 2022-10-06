@@ -32,6 +32,8 @@ export class TransactionsController {
 
     data.forEach(value => {
       var withProduct : any = {};
+      var newValue : any = value
+      withProduct._id = newValue._id
       withProduct.qty = value.qty
       withProduct.total_price = value.total_price
       withProduct.payment_method = value.payment_method
@@ -57,9 +59,23 @@ export class TransactionsController {
   @Get(':id')
   async find(@Param('id') id: string) {
     var data = await this.service.findOne(id);
+    var withProduct : any = {};
+    // withProduct.id = data._id
+    withProduct.qty = data.qty
+    withProduct.total_price = data.total_price
+    withProduct.payment_method = data.payment_method
+    withProduct.createdAt = data.createdAt
+    withProduct.deletedAt = data.deletedAt
+
+    this.socket.emit('product_detail', {productId: data.product_id})
+    this.socket.on('product_detail', ({ res }) => {
+      this.product = res
+      // Logger.log(this.product)
+    })
+    withProduct.product = this.product
     return {
         statusCode: 200,
-        data: data
+        data: withProduct
     };
   }
 

@@ -1,5 +1,6 @@
+import { Type } from '@nestjs/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import mongoose, { Document, SchemaTypes, Types } from 'mongoose';
 
 export type ProductDocument = Product & Document;
 
