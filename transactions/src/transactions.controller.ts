@@ -33,14 +33,15 @@ export class TransactionsController {
     data.forEach(value => {
       var withProduct : any = {};
       var newValue : any = value
-      withProduct._id = newValue._id
-      withProduct.qty = value.qty
-      withProduct.total_price = value.total_price
-      withProduct.payment_method = value.payment_method
-      withProduct.createdAt = value.createdAt
-      withProduct.deletedAt = value.deletedAt
 
-      this.socket.emit('product_detail', {productId: value.product_id})
+      withProduct._id = newValue._id
+      withProduct.qty = newValue.qty
+      withProduct.total_price = newValue.total_price
+      withProduct.payment_method = newValue.payment_method
+      withProduct.createdAt = newValue.createdAt
+      withProduct.deletedAt = newValue.deletedAt
+
+      this.socket.emit('product_detail', {productId: newValue.product_id})
       this.socket.on('product_detail', ({ res }) => {
         this.product = res
         // Logger.log(this.product)
@@ -58,14 +59,18 @@ export class TransactionsController {
 
   @Get(':id')
   async find(@Param('id') id: string) {
+    
+    this.socket = io("http://127.0.0.1:8000")
     var data = await this.service.findOne(id);
     var withProduct : any = {};
-    // withProduct.id = data._id
-    withProduct.qty = data.qty
-    withProduct.total_price = data.total_price
-    withProduct.payment_method = data.payment_method
-    withProduct.createdAt = data.createdAt
-    withProduct.deletedAt = data.deletedAt
+    var newValue : any = data
+
+    withProduct._id = newValue._id
+    withProduct.qty = newValue.qty
+    withProduct.total_price = newValue.total_price
+    withProduct.payment_method = newValue.payment_method
+    withProduct.createdAt = newValue.createdAt
+    withProduct.deletedAt = newValue.deletedAt
 
     this.socket.emit('product_detail', {productId: data.product_id})
     this.socket.on('product_detail', ({ res }) => {
